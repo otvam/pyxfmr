@@ -1,5 +1,5 @@
 """
-Definition of the waveforms:
+Compute the waveforms and the correction factors for a converter type:
     - Single-phase and three-phase excitations (star connection)
     - Sinusoidal, dual-active bridge, or series-resonant converter
     - The magnetizing current of the transformer is neglected.
@@ -312,41 +312,3 @@ def get_converter_waveform(conv, phase, P_src, V_src, phi, amp, alpha_stm, n):
     print(f"    igse_flux = {igse_flux:.4f}")
     print(f"    igse_loss = {igse_loss:.4f}")
     print(f"    harm_freq = {harm_freq:.4f}")
-
-
-if __name__ == "__main__":
-    # power rating of the converter
-    P_src = 10e3
-
-    # voltage rating of the converter
-    V_src = 600.0
-
-    # voltage ratio between the bridge
-    amp = 1.0
-
-    # phase angle between the bridges
-    phi = np.deg2rad(30.0)
-
-    # define the Steinmetz parameters
-    alpha_stm = 1.7215
-
-    # number of samples for the waveforms
-    n = 10000
-
-    # get the converters (sinusoidal)
-    get_converter_waveform("sin", "1p", P_src, V_src, phi, amp, alpha_stm, n)
-    get_converter_waveform("sin", "3p_wye", P_src, V_src, phi, amp, alpha_stm, n)
-    get_converter_waveform("sin", "3p_delta", P_src, V_src, phi, amp, alpha_stm, n)
-
-    # get the converters (DAB)
-    get_converter_waveform("dab", "1p", P_src, V_src, phi, amp, alpha_stm, n)
-    get_converter_waveform("dab", "3p_wye", P_src, V_src, phi, amp, alpha_stm, n)
-    get_converter_waveform("dab", "3p_delta", P_src, V_src, phi, amp, alpha_stm, n)
-
-    # get the converters (SRC)
-    get_converter_waveform("src", "1p", P_src, V_src, phi, amp, alpha_stm, n)
-    get_converter_waveform("src", "3p_wye", P_src, V_src, phi, amp, alpha_stm, n)
-    get_converter_waveform("src", "3p_delta", P_src, V_src, phi, amp, alpha_stm, n)
-    
-    # plot the waveforms
-    plt.show()

@@ -1,6 +1,6 @@
 """
-Find the optimal aspect ratios for a core geometry.
-    - The results are independent of the volume.\
+Find the optimal aspect ratios for a transformer type:
+    - The results are independent of the volume.
     - The insulation distance are neglected.
     - Bounds are used for the optimization.
 """
@@ -201,23 +201,3 @@ def get_optimal_shape(geom, alpha_stm, beta_stm, optim):
     print(f"    solver data")
     print(f"        status = {result.status}")
     print(f"        success = {result.success}")
-
-
-if __name__ == "__main__":
-    # define the Steinmetz parameters
-    alpha_stm = 1.7215
-    beta_stm = 2.4608
-
-    # optimization parameters
-    optim = {
-        "tol": 1e-6,  # termination tolerance for the optimizer
-        "ratio_cw_bnd": (1.0, 10.0),  # bounds for the core/window ratio
-        "ratio_c_bnd": (1.0, 5.0),  # bounds for the core aspect ratio
-        "ratio_w_bnd": (1.0, 3.0),  # bounds for the winding aspect ratio
-    }
-
-    # get the optimal aspect ratios
-    get_optimal_shape("shell_inter", alpha_stm, beta_stm, optim)
-    get_optimal_shape("shell_simple", alpha_stm, beta_stm, optim)
-    get_optimal_shape("core_type", alpha_stm, beta_stm, optim)
-    get_optimal_shape("three_phase", alpha_stm, beta_stm, optim)

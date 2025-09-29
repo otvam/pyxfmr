@@ -13,7 +13,7 @@ import numpy as np
 def get_steinmetz():
     """
     Return the Steinmetz parameters for the core losses.
-    The values are computed in "transformer_utils/steinmetz_extractor.py".
+    The values are computed in "run_utils_steinmetz.py".
     """
 
     k_stm = 0.038971
@@ -26,7 +26,7 @@ def get_steinmetz():
 def get_shape(geom):
     """
     Return the optimal aspect ratios for the geometry.
-    The values are computed in "transformer_utils/shape_optimizer.py".
+    The values are computed in "run_utils_shape.py".
     """
 
     if geom == "shell_inter":
@@ -54,7 +54,7 @@ def get_shape(geom):
 def get_converter(conv, phase):
     """
     Return the correction factors for the waveshapes.
-    The values are computed in "transformer_utils/converter_waveform.py".
+    The values are computed in "run_utils_waveform.py".
     """
 
     if phase == "1p":
