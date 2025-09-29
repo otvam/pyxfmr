@@ -9,7 +9,7 @@ __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
 import numpy as np
-from transformer_scaling import solver
+from transformer_scaling import model
 import param
 
 
@@ -90,7 +90,7 @@ def fct_solve(geom, conv, split):
     design = param.get_design(geom, conv, split, simplified)
 
     # solve the design
-    design = solver.get_solve(geom, trg, opt, constant, design)
+    design = model.get_solve(geom, trg, opt, constant, design)
 
     # get the loss factors
     fact_conv = _get_conv_factor(design, alpha_stm, beta_stm)

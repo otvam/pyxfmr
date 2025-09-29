@@ -7,7 +7,7 @@ __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
 import matplotlib.pyplot as plt
-from transformer_scaling import solver
+from transformer_scaling import model
 from transformer_scaling import display
 import param
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     design = param.get_design(geom, conv, split, simplified)
 
     # solve the design
-    design = solver.get_solve(geom, trg, opt, constant, design)
+    design = model.get_solve(geom, trg, opt, constant, design)
 
     # display the solution (with or without details)
     display.get_geom("single", geom, design)

@@ -6,7 +6,7 @@ __author__ = "Thomas Guillod"
 __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
-from transformer_scaling import solver
+from transformer_scaling import model
 from transformer_scaling import display
 import param
 
@@ -30,7 +30,7 @@ def fct_solve(geom, conv, split):
     design = param.get_design(geom, conv, split, simplified)
 
     # solve the design
-    design = solver.get_solve(geom, trg, opt, constant, design)
+    design = model.get_solve(geom, trg, opt, constant, design)
 
     # display the solution (with or without details)
     tag = f"{geom}_{split}_{conv}"

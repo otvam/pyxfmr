@@ -11,7 +11,7 @@ __license__ = "Mozilla Public License Version 2.0"
 
 import numpy as np
 import matplotlib.pyplot as plt
-from transformer_scaling import solver
+from transformer_scaling import model
 from transformer_scaling import vector
 import param
 
@@ -44,7 +44,7 @@ def fct_solve(opt, f_def, n_def, n_sweep):
 
     # solve the design
     design = vector.get_vectorize(design, n_sweep)
-    design = solver.get_solve(geom, trg, opt, constant, design)
+    design = model.get_solve(geom, trg, opt, constant, design)
 
     # extract the results
     f_sw = design["f_sw"]

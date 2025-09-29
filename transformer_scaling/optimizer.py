@@ -10,7 +10,7 @@ __license__ = "Mozilla Public License Version 2.0"
 import copy
 import numpy as np
 import scipy.optimize as optimize
-from transformer_scaling import solver
+from transformer_scaling import model
 from transformer_scaling import vector
 
 
@@ -75,7 +75,7 @@ def get_optimal(geom, trg, opt, constant, design, optim):
         design_tmp = vector.get_vectorize(design_tmp, n_sweep)
 
         # solve the design
-        design_tmp = solver.get_solve(geom, trg, opt, constant, design_tmp)
+        design_tmp = model.get_solve(geom, trg, opt, constant, design_tmp)
 
         # get the objective
         obj = fct_obj(design_tmp)
@@ -100,6 +100,6 @@ def get_optimal(geom, trg, opt, constant, design, optim):
     design["opt_success"] = result.success
 
     # solve the optimal design
-    design = solver.get_solve(geom, trg, opt, constant, design)
+    design = model.get_solve(geom, trg, opt, constant, design)
 
     return design
