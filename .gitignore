@@ -1,0 +1,23 @@
+# List of files to ignore for Git.
+#
+# Thomas Guillod - Dartmouth College
+# Mozilla Public License Version 2.0
+
+# exclude Python objects
+*.pyc
+*.pyo
+
+# exclude data and temp files
+*.log
+*.bak
+*.pkl
+
+# exclude the data and test folders
+data/
+scratch/
+temp/
+
+# exclude the IDE folders
+.vscode/
+.idea/
+.venv/
