@@ -44,6 +44,6 @@ if __name__ == "__main__":
     converter_waveform.get_converter_waveform("src", "1p", P_src, V_src, phi, amp, alpha_stm, n)
     converter_waveform.get_converter_waveform("src", "3p_wye", P_src, V_src, phi, amp, alpha_stm, n)
     converter_waveform.get_converter_waveform("src", "3p_delta", P_src, V_src, phi, amp, alpha_stm, n)
-    
+
     # plot the waveforms
     plt.show()

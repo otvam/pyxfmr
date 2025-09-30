@@ -158,7 +158,7 @@ def _get_3p_voltage_delta(d_sig):
     """
 
     y = np.array([+1.0, 0.0, -1.0, 0.0, +1.0])
-    x = np.array([0 / 12, 2 / 12, 4 / 12, 8 / 12, 10/12, 12 / 12])
+    x = np.array([0 / 12, 2 / 12, 4 / 12, 8 / 12, 10 / 12, 12 / 12])
     V_sig = interpolate.PPoly([y], x)(d_sig)
 
     return V_sig
@@ -176,7 +176,7 @@ def _get_dab_current(d_sig, V_sig, phi, amp):
     V_shift *= amp
 
     # get the current with the voltage of the leakage
-    I_sig = _get_cumint(d_sig, V_sig-V_shift)
+    I_sig = _get_cumint(d_sig, V_sig - V_shift)
 
     return I_sig
 

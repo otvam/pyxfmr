@@ -76,7 +76,7 @@ def _get_loss_core(constant, design):
     A_core = design["A_core"]
 
     # compute the core losses
-    B_pk = (igse_flux *  np.sqrt(2) * V_rms) / (2 * np.pi * f_sw * n_turn * A_core)
+    B_pk = (igse_flux * np.sqrt(2) * V_rms) / (2 * np.pi * f_sw * n_turn * A_core)
     p_core = (k_stm * fact_core * igse_loss) * (f_sw**alpha_stm) * (B_pk**beta_stm)
     P_core = V_core * p_core
 
