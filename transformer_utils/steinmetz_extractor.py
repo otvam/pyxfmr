@@ -13,6 +13,7 @@ __license__ = "Mozilla Public License Version 2.0"
 import numpy as np
 import scipy.optimize as optimize
 import scipy.interpolate as interpolate
+import matplotlib.pyplot as plt
 
 
 def get_interp_losses(dset, grid):
@@ -124,13 +125,38 @@ def get_eval_steinmetz(dset, grid, k_stm, alpha_stm, beta_stm):
 
     # get the error
     p_stm = k_stm * (f_eval**alpha_stm) * (B_eval**beta_stm)
-    err = np.abs((p_stm - p_eval) / p_eval)
+    err = (p_stm - p_eval) / p_eval
+
+    # create the figure
+    (fig, axes) = plt.subplots(num="error", figsize=(6.4, 7.0))
+
+    # plot the variables
+    sc = axes.scatter(1e-3 * f_eval, 1e3 * B_eval, 10, 1e2 * err)
+
+    # add colorbar
+    cbar = plt.colorbar(sc, ax=axes)
+    cbar.set_label("Relative Error (%)")
+
+    # add cosmetics
+    axes.set_xscale("log")
+    axes.set_yscale("log")
+    axes.set_xlabel("Frequency [kHz]")
+    axes.set_ylabel("Flux Density [mT]")
+    axes.grid()
+
+    # add cosmetics
+    fig.tight_layout()
+
+    # add cosmetics
+    plt.tight_layout()
 
     # get the error metrics
+    err = np.abs(err)
     err_rms = np.sqrt(np.mean(err**2))
     err_avg = np.mean(err)
     err_max = np.max(err)
 
+    # print the error metrics
     print(f"error metrics")
     print(f"    err_avg = {1e2 * err_avg:.4f} %")
     print(f"    err_rms = {1e2 * err_rms:.4f} %")

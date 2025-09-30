@@ -7,6 +7,7 @@ __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
 import numpy as np
+import matplotlib.pyplot as plt
 from transformer_utils import steinmetz_extractor
 
 
@@ -48,3 +49,6 @@ if __name__ == "__main__":
 
     # evaluate the Steinmetz fit
     steinmetz_extractor.get_eval_steinmetz(dset, grid, k_stm, alpha_stm, beta_stm)
+
+    # plot the errors
+    plt.show()
