@@ -131,7 +131,7 @@ def get_eval_steinmetz(dset, grid, k_stm, alpha_stm, beta_stm):
     (fig, axes) = plt.subplots(num="error", figsize=(6.4, 7.0))
 
     # plot the variables
-    sc = axes.scatter(1e-3 * f_eval, 1e3 * B_eval, 10, 1e2 * err)
+    sc = axes.scatter(1e-3 * f_eval, 1e3 * B_eval, 20, 1e2 * err)
 
     # add colorbar
     cbar = plt.colorbar(sc, ax=axes)
