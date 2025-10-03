@@ -9,6 +9,8 @@ __license__ = "Mozilla Public License Version 2.0"
 import numpy as np
 from transformer_scaling import optimizer
 from transformer_scaling import display
+from transformer_scaling import model
+from transformer_scaling import vector
 import param
 
 
@@ -26,10 +28,23 @@ def fct_solve(geom, conv, split):
     # use the simplified design
     simplified = False
 
+    # get the parameters
+    constant = param.get_constant()
+    design = param.get_design(geom, conv, split, simplified)
+
     # define the objective function
     #   - the relative losses are the objective
     #   - a penalty is added for invalid designs
-    def fct_obj(design_tmp):
+    def fct_obj(var_tmp, n_sweep):
+        # merge parameters
+        design_tmp = design | var_tmp
+
+        # vectorize the design
+        design_tmp = vector.get_vectorize(design_tmp, n_sweep)
+
+        # solve the design
+        design_tmp = model.get_solve(geom, trg, opt, constant, design_tmp)
+
         # extract the data
         loss = design_tmp["loss"]
         penalty = design_tmp["penalty"]
@@ -45,29 +60,30 @@ def fct_solve(geom, conv, split):
 
         return obj
 
-    # optimization parameters
-    optim = {
-        "fct_obj": fct_obj,  # objective function for the optimization
-        "var_list": {  # options for the variables to be optimized
-            "ratio_cw": {"bnd": (0.2, 10.0), "log": True, "use": True},
-            "ratio_c": {"bnd": (0.5, 5.0), "log": True, "use": True},
-            "ratio_w": {"bnd": (0.5, 6.0), "log": True, "use": True},
-            "n_def": {"bnd": (2, 50), "log": True, "use": True},
-            "f_def": {"bnd": (10e3, 500e3), "log": True, "use": True},
-        },
-        "options": {  # options for the global optimizer (differential evolution)
-            "maxiter": 250,
-            "popsize": 200,
-            "tol": 1e-5,
-        },
+    #  options for the variables to be optimized
+    var_list = {
+        "ratio_cw": {"bnd": (0.2, 10.0), "log": True, "use": True},
+        "ratio_c": {"bnd": (0.5, 5.0), "log": True, "use": True},
+        "ratio_w": {"bnd": (0.5, 6.0), "log": True, "use": True},
+        "n_def": {"bnd": (2, 50), "log": True, "use": True},
+        "f_def": {"bnd": (10e3, 500e3), "log": True, "use": True},
     }
 
-    # get the parameters
-    constant = param.get_constant()
-    design = param.get_design(geom, conv, split, simplified)
+    # options for the global optimizer (differential evolution)
+    options = {
+        "maxiter": 250,
+        "popsize": 200,
+        "tol": 1e-5,
+    }
 
     # solve the transformer design problem
-    design = optimizer.get_optimal(geom, trg, opt, constant, design, optim)
+    (var, res) = optimizer.get_optimal(fct_obj, var_list, options)
+
+    # extract the optimal design
+    design = design | var
+
+    # solve the optimal design
+    design = model.get_solve(geom, trg, opt, constant, design)
 
     # display the solution (with or without details)
     tag = f"{geom}_{split}_{conv}"
