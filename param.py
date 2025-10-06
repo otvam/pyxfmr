@@ -7,6 +7,7 @@ __author__ = "Thomas Guillod"
 __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
+import json
 import numpy as np
 
 
@@ -16,9 +17,14 @@ def get_steinmetz():
     The values are computed in "run_utils_steinmetz.py".
     """
 
-    k_stm = 0.038976
-    alpha_stm = 1.7215
-    beta_stm = 2.4608
+    # load the values
+    with open("param_steinmetz.json", "r") as fid:
+        data = json.load(fid)
+
+    # extract the values
+    k_stm = data["k_stm"]
+    alpha_stm = data["alpha_stm"]
+    beta_stm = data["beta_stm"]
 
     return k_stm, alpha_stm, beta_stm
 
@@ -29,117 +35,42 @@ def get_shape(geom):
     The values are computed in "run_utils_shape.py".
     """
 
-    if geom == "shell_inter":
-        ratio_cw = 5.3403
-        ratio_c = 3.5419
-        ratio_w = 3.0000
-    elif geom == "shell_simple":
-        ratio_cw = 5.3404
-        ratio_c = 3.5419
-        ratio_w = 3.0000
-    elif geom == "core_type":
-        ratio_cw = 1.7054
-        ratio_c = 3.1919
-        ratio_w = 3.0000
-    elif geom == "three_phase":
-        ratio_cw = 1.7665
-        ratio_c = 3.1467
-        ratio_w = 3.0000
-    else:
-        raise ValueError("invalid geometry")
+    # load the values
+    with open("param_shape.json", "r") as fid:
+        data = json.load(fid)
+
+    # select the values
+    data = data[geom]
+
+    # extract the values
+    ratio_cw = data["ratio_cw"]
+    ratio_c = data["ratio_c"]
+    ratio_w = data["ratio_w"]
 
     return ratio_cw, ratio_c, ratio_w
 
 
-def get_converter(conv, phase):
+def get_waveform(conv, phase):
     """
     Return the correction factors for the waveshapes.
     The values are computed in "run_utils_waveform.py".
     """
 
-    if phase == "1p":
-        if conv == "sin":
-            P_trf = 10000.0000
-            S_trf = 10000.0000
-            V_rms = 600.0000
-            I_rms = 16.6667
-            igse_flux = 1.0000
-            igse_loss = 1.0000
-            harm_freq = 1.0000
-        elif conv == "dab":
-            P_trf = 10000.0000
-            S_trf = 11315.9587
-            V_rms = 600.0000
-            I_rms = 18.8599
-            igse_flux = 1.1105
-            igse_loss = 0.8685
-            harm_freq = 1.6537
-        elif conv == "src":
-            P_trf = 10000.0000
-            S_trf = 11107.2072
-            V_rms = 600.0000
-            I_rms = 18.5120
-            igse_flux = 1.1105
-            igse_loss = 0.8685
-            harm_freq = 1.0000
-        else:
-            raise ValueError("invalid conv")
-    elif phase == "3p_wye":
-        if conv == "sin":
-            P_trf = 10000.0000
-            S_trf = 10000.0000
-            V_rms = 282.8427
-            I_rms = 11.7851
-            igse_flux = 1.0000
-            igse_loss = 1.0000
-            harm_freq = 1.0000
-        elif conv == "dab":
-            P_trf = 10000.0000
-            S_trf = 10943.5812
-            V_rms = 282.8427
-            I_rms = 12.8971
-            igse_flux = 1.0470
-            igse_loss = 0.9347
-            harm_freq = 1.4103
-        elif conv == "src":
-            P_trf = 10000.0000
-            S_trf = 10471.9755
-            V_rms = 282.8427
-            I_rms = 12.3413
-            igse_flux = 1.0470
-            igse_loss = 0.9347
-            harm_freq = 1.0000
-        else:
-            raise ValueError("invalid conv")
-    elif phase == "3p_delta":
-        if conv == "sin":
-            P_trf = 10000.0000
-            S_trf = 10000.0000
-            V_rms = 489.8979
-            I_rms = 6.8041
-            igse_flux = 1.0000
-            igse_loss = 1.0000
-            harm_freq = 1.0000
-        elif conv == "dab":
-            P_trf = 10000.0000
-            S_trf = 10943.5812
-            V_rms = 489.8979
-            I_rms = 7.4462
-            igse_flux = 0.9069
-            igse_loss = 1.1633
-            harm_freq = 1.4103
-        elif conv == "src":
-            P_trf = 10000.0000
-            S_trf = 10471.9756
-            V_rms = 489.8979
-            I_rms = 7.1253
-            igse_flux = 0.9069
-            igse_loss = 1.1633
-            harm_freq = 1.0000
-        else:
-            raise ValueError("invalid conv")
-    else:
-        raise ValueError("invalid phase")
+    # load the values
+    with open("param_waveform.json", "r") as fid:
+        data = json.load(fid)
+
+    # select the values
+    data = data[conv][phase]
+
+    # extract the values
+    P_trf = data["P_trf"]
+    S_trf = data["S_trf"]
+    V_rms = data["V_rms"]
+    I_rms = data["I_rms"]
+    igse_flux = data["igse_flux"]
+    igse_loss = data["igse_loss"]
+    harm_freq = data["harm_freq"]
 
     return P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq
 
@@ -209,17 +140,17 @@ def get_design(geom, conv, split, simplified):
     #   - 3p - three-phase converter / one three-phase transformer (wye or delta connections)
     #   - sp - three-phase converter / three single-phase transformers (wye or delta connections)
     if split == "1p":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "1p")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "1p")
     elif split == "3p_wye":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_wye")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_wye")
     elif split == "3p_delta":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_delta")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_delta")
     elif split == "sp_wye":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_wye")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_wye")
         P_trf = P_trf / 3
         S_trf = S_trf / 3
     elif split == "sp_delta":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_delta")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_delta")
         P_trf = P_trf / 3
         S_trf = S_trf / 3
     else:
