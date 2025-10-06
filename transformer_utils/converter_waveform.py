@@ -81,7 +81,7 @@ def _get_flux_factor(d_sig, V_sig):
     return B_sig, B_sin, V_rms, igse_flux
 
 
-def _get_loss_factor(d_sig, B_sig, B_sin, alpha_stm):
+def _get_loss_factor(d_sig, B_sig, B_sin, igse_flux, alpha_stm, beta_stm):
     """
     Correction factor for the core losses (considering the waveshape with iGSE).
     """
@@ -95,11 +95,11 @@ def _get_loss_factor(d_sig, B_sig, B_sin, alpha_stm):
     dB_sin = np.gradient(B_sin, d_sig)
 
     # compute the distortion
-    k_sig = ((1 / B_pkpk_sig) ** alpha_stm) * integrate.trapezoid(np.abs(dB_sig) ** alpha_stm, d_sig)
-    k_sin = ((1 / B_pkpk_sin) ** alpha_stm) * integrate.trapezoid(np.abs(dB_sin) ** alpha_stm, d_sig)
+    k_sig = (B_pkpk_sig ** (beta_stm - alpha_stm)) * integrate.trapezoid(np.abs(dB_sig) ** alpha_stm, d_sig)
+    k_sin = (B_pkpk_sin ** (beta_stm - alpha_stm)) * integrate.trapezoid(np.abs(dB_sin) ** alpha_stm, d_sig)
 
     # extract the loss correction factors
-    igse_loss = k_sig / k_sin
+    igse_loss = (1 / (igse_flux ** beta_stm)) * (k_sig / k_sin)
 
     return igse_loss
 
@@ -211,10 +211,17 @@ def _get_plot_waveform(conv, phase, n_coil, d_sig, V_sig, I_sig):
     fig.tight_layout()
 
 
-def get_converter_waveform(conv, phase, P_src, V_src, phi, amp, alpha_stm, n):
+def get_converter_waveform(conv, phase, operating, alpha_stm, beta_stm):
     """
     Get the waveform for a single-phase converter.
     """
+
+    # extract the data
+    n = operating["n"]
+    P_src = operating["P_src"]
+    V_src = operating["V_src"]
+    phi = operating["phi"]
+    amp = operating["amp"]
 
     # get the time base
     d_sig = np.linspace(0.0, 1.0, n)
@@ -292,7 +299,7 @@ def get_converter_waveform(conv, phase, P_src, V_src, phi, amp, alpha_stm, n):
     # get the harmonic factors
     (I_rms, harm_freq) = _get_freq_factor(d_sig, I_sig)
     (B_sig, B_sin, V_rms, igse_flux) = _get_flux_factor(d_sig, V_sig)
-    igse_loss = _get_loss_factor(d_sig, B_sig, B_sin, alpha_stm)
+    igse_loss = _get_loss_factor(d_sig, B_sig, B_sin, igse_flux, alpha_stm, beta_stm)
 
     # get the apparent power
     S_trf = n_coil * V_rms * I_rms
@@ -312,3 +319,16 @@ def get_converter_waveform(conv, phase, P_src, V_src, phi, amp, alpha_stm, n):
     print(f"    igse_flux = {igse_flux:.4f}")
     print(f"    igse_loss = {igse_loss:.4f}")
     print(f"    harm_freq = {harm_freq:.4f}")
+
+    # assign the output
+    out = {
+        "P_trf": float(P_trf),
+        "S_trf": float(S_trf),
+        "V_rms": float(V_rms),
+        "I_rms": float(I_rms),
+        "igse_flux": float(igse_flux),
+        "igse_loss": float(igse_loss),
+        "harm_freq": float(harm_freq),
+    }
+
+    return out

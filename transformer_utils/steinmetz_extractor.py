@@ -112,13 +112,25 @@ def get_optimal_steinmetz(dset, grid, optim):
     print(f"    status = {result.status}")
     print(f"    success = {result.success}")
 
-    return k_stm, alpha_stm, beta_stm
+    # assign the output
+    out = {
+        "k_stm": float(k_stm),
+        "alpha_stm": float(alpha_stm),
+        "beta_stm": float(beta_stm),
+    }
+
+    return out
 
 
-def get_eval_steinmetz(dset, grid, k_stm, alpha_stm, beta_stm):
+def get_eval_steinmetz(dset, grid, out):
     """
     Evaluate a Steinmetz fit with loss data.
     """
+
+    # extract the output
+    k_stm = out["k_stm"]
+    alpha_stm = out["alpha_stm"]
+    beta_stm = out["beta_stm"]
 
     # interpolate the loss data on grid
     (f_eval, B_eval, p_eval) = get_interp_losses(dset, grid)

@@ -201,3 +201,12 @@ def get_optimal_shape(geom, alpha_stm, beta_stm, optim):
     print(f"    solver data")
     print(f"        status = {result.status}")
     print(f"        success = {result.success}")
+
+    # assign the output
+    out = {
+        "ratio_cw": float(ratio_cw),
+        "ratio_c": float(ratio_c),
+        "ratio_w": float(ratio_w),
+    }
+
+    return out

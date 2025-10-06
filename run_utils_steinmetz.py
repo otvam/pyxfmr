@@ -6,6 +6,7 @@ __author__ = "Thomas Guillod"
 __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
+import json
 import numpy as np
 import matplotlib.pyplot as plt
 from transformer_utils import steinmetz_extractor
@@ -45,10 +46,14 @@ if __name__ == "__main__":
     }
 
     # get a Steinmetz fit
-    (k_stm, alpha_stm, beta_stm) = steinmetz_extractor.get_optimal_steinmetz(dset, grid, optim)
+    out = steinmetz_extractor.get_optimal_steinmetz(dset, grid, optim)
 
     # evaluate the Steinmetz fit
-    steinmetz_extractor.get_eval_steinmetz(dset, grid, k_stm, alpha_stm, beta_stm)
+    steinmetz_extractor.get_eval_steinmetz(dset, grid, out)
+
+    # print the results
+    with open("param_steinmetz.json", "w") as fid:
+        json.dump(out, fid, indent=4)
 
     # plot the errors
     plt.show()

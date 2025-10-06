@@ -6,13 +6,16 @@ __author__ = "Thomas Guillod"
 __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
+import json
 from transformer_utils import transformer_shape
 
 
 if __name__ == "__main__":
     # define the Steinmetz parameters
-    alpha_stm = 1.7215
-    beta_stm = 2.4608
+    with open("param_steinmetz.json", "r") as fid:
+        data = json.load(fid)
+        alpha_stm = data["alpha_stm"]
+        beta_stm = data["beta_stm"]
 
     # optimization parameters
     optim = {
@@ -22,8 +25,19 @@ if __name__ == "__main__":
         "ratio_w_bnd": (1.0, 3.0),  # bounds for the winding aspect ratio
     }
 
+    # different transformer configurations
+    geom_list = [
+        "shell_inter",
+        "shell_simple",
+        "core_type",
+        "three_phase",
+    ]
+
     # get the optimal aspect ratios
-    transformer_shape.get_optimal_shape("shell_inter", alpha_stm, beta_stm, optim)
-    transformer_shape.get_optimal_shape("shell_simple", alpha_stm, beta_stm, optim)
-    transformer_shape.get_optimal_shape("core_type", alpha_stm, beta_stm, optim)
-    transformer_shape.get_optimal_shape("three_phase", alpha_stm, beta_stm, optim)
+    out = {}
+    for geom in geom_list:
+        out[geom] = transformer_shape.get_optimal_shape(geom, alpha_stm, beta_stm, optim)
+
+    # write the results
+    with open("param_shape.json", "w") as fid:
+        json.dump(out, fid, indent=4)
