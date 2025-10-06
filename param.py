@@ -8,6 +8,7 @@ __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
 import json
+import os.path
 import numpy as np
 
 
@@ -18,7 +19,8 @@ def get_steinmetz():
     """
 
     # load the values
-    with open("param_steinmetz.json", "r") as fid:
+    folder = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(folder, "param_steinmetz.json"), "r") as fid:
         data = json.load(fid)
 
     # extract the values
@@ -36,7 +38,8 @@ def get_shape(geom):
     """
 
     # load the values
-    with open("param_shape.json", "r") as fid:
+    folder = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(folder, "param_shape.json"), "r") as fid:
         data = json.load(fid)
 
     # select the values
@@ -57,7 +60,8 @@ def get_waveform(conv, phase):
     """
 
     # load the values
-    with open("param_waveform.json", "r") as fid:
+    folder = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(folder, "param_waveform.json"), "r") as fid:
         data = json.load(fid)
 
     # select the values
