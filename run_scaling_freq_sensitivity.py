@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
     # compute the frequency diversity with the analytical expression
     term_1 = ((f_sw**2) / (f_sw_opt**2)) ** (alpha_stm / (2 + beta_stm))
-    term_2 = (1 - alpha_stm / beta_stm + (alpha_stm / beta_stm) * ((f_sw_opt**2) / (f_sw**2))) ** (beta_stm / (2 + beta_stm))
+    term_2 = (1 - (alpha_stm / beta_stm) + (alpha_stm / beta_stm) * ((f_sw_opt**2) / (f_sw**2))) ** (beta_stm / (2 + beta_stm))
     P_diversity = P_loss_opt * (term_1 * term_2)
 
     # plot the frequency diversity
