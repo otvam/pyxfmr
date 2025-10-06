@@ -28,7 +28,7 @@ if __name__ == "__main__":
     alpha_stm = 1.7215
 
     # number of samples for the waveforms
-    n = 10000
+    n = 25000
 
     # get the converters (sinusoidal)
     converter_waveform.get_converter_waveform("sin", "1p", P_src, V_src, phi, amp, alpha_stm, n)
