@@ -16,7 +16,7 @@ def get_steinmetz():
     The values are computed in "run_utils_steinmetz.py".
     """
 
-    k_stm = 0.038971
+    k_stm = 0.038976
     alpha_stm = 1.7215
     beta_stm = 2.4608
 
