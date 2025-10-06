@@ -144,17 +144,17 @@ def get_design(geom, conv, split, simplified):
     #   - 3p - three-phase converter / one three-phase transformer (wye or delta connections)
     #   - sp - three-phase converter / three single-phase transformers (wye or delta connections)
     if split == "1p":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "1p")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "1p")
     elif split == "3p_wye":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_wye")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_wye")
     elif split == "3p_delta":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_delta")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_delta")
     elif split == "sp_wye":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_wye")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_wye")
         P_trf = P_trf / 3
         S_trf = S_trf / 3
     elif split == "sp_delta":
-        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_waveform(conv, "3p_delta")
+        (P_trf, S_trf, V_rms, I_rms, igse_flux, igse_loss, harm_freq) = get_converter(conv, "3p_delta")
         P_trf = P_trf / 3
         S_trf = S_trf / 3
     else:
