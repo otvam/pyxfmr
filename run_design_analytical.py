@@ -11,16 +11,13 @@ from transformer_scaling import display
 import param
 
 
-def fct_solve(geom, conv, split):
+def fct_solve(geom, conv, split, trg):
     """
     Optimize, solve, and plot a single transformer design (analytical optima).
     """
 
-    # geometry target
-    trg = "volume"
-
-    # optimization type
-    opt = "freq"
+    # optimization type (optimal frequency and number of turns)
+    opt = "freq_turn"
 
     # use the simplified design
     simplified = True
@@ -32,9 +29,7 @@ def fct_solve(geom, conv, split):
     # solve the design
     design = model.get_solve(geom, trg, opt, constant, design)
 
-    # display the solution (with or without details)
-    tag = f"{geom}_{split}_{conv}"
-    display.get_summary(tag, design)
+    return design
 
 
 if __name__ == "__main__":
@@ -60,4 +55,10 @@ if __name__ == "__main__":
     for geom, split in shape_list:
         print(f"========================================== {geom} / {split}")
         for conv in conv_list:
-            fct_solve(geom, conv, split)
+            print(f"========= {conv}")
+            design = fct_solve(geom, conv, split, "volume")
+            summary = display.get_summary(design)
+            print(f"volume / {summary}")
+            design = fct_solve(geom, conv, split, "mass")
+            summary = display.get_summary(design)
+            print(f"mass / {summary}")

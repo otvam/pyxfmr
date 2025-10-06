@@ -41,6 +41,10 @@ def fct_select(name, choice, default):
 
 if __name__ == "__main__":
     # transformer excitation
+    trg_list = ["volume", "mass"]
+    trg = fct_select("fixed parameter", trg_list, "volume")
+
+    # transformer excitation
     conv_list = ["sin", "dab", "src"]
     conv = fct_select("converter type", conv_list, "sin")
 
@@ -60,14 +64,9 @@ if __name__ == "__main__":
     ]
     (geom, split) = fct_select("transformer type", shape_list, ("shell_inter", "1p"))
 
-    # plot the name
-    tag = f"{geom}_{split}_{conv}"
-
-    # geometry target
-    trg = "volume"
-
     # optimization type
-    opt = "freq"
+    opt_list = ["none", "freq", "turn", "freq_turn"]
+    opt = fct_select("optimization type", opt_list, "freq_turn")
 
     # use the simplified design
     simplified = True
@@ -80,8 +79,8 @@ if __name__ == "__main__":
     design = model.get_solve(geom, trg, opt, constant, design)
 
     # display the solution (with or without details)
-    display.get_geom(tag, geom, design)
-    display.get_disp(tag, design)
+    display.get_geom("design", geom, design)
+    display.get_disp("design", design)
 
     # show plots
     plt.show()

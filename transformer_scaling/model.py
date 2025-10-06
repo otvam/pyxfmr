@@ -463,6 +463,8 @@ def _get_geometry(geom, trg, constant, design):
         elif trg == "mass":
             fom_now = m_tot
             fom_def = P_trf / gamma_def
+        elif trg == "none":
+            break
         else:
             raise ValueError("invalid trg")
 
@@ -631,9 +633,12 @@ def get_solve(geom, trg, opt, constant, design):
     if opt == "none":
         design = _get_optimal_freq(constant, design, False)
         design = _get_optimal_turn(constant, design, False)
-    elif opt == "freq":
+    elif opt == "freq_turn":
         design = _get_optimal_freq(constant, design, True)
         design = _get_optimal_turn(constant, design, True)
+    elif opt == "freq":
+        design = _get_optimal_freq(constant, design, True)
+        design = _get_optimal_turn(constant, design, False)
     elif opt == "turn":
         design = _get_optimal_freq(constant, design, False)
         design = _get_optimal_turn(constant, design, True)

@@ -76,8 +76,8 @@ def fct_solve(geom, conv, split):
     # geometry target
     trg = "volume"
 
-    # optimization type
-    opt = "freq"
+    # optimization type (optimal frequency and number of turns)
+    opt = "freq_turn"
 
     # use the simplified design
     simplified = True

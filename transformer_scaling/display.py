@@ -383,9 +383,9 @@ def get_disp(name, design):
     print(f"========================================== {name}")
 
 
-def get_summary(name, design):
+def get_summary(design):
     """
-    Display the main parameters (console).
+    Get the main parameters (string).
     """
 
     penalty = f"penalty = {1e0 * design['penalty']:.2f} #"
@@ -394,4 +394,6 @@ def get_summary(name, design):
     loss = f"loss = {1e2 * design['loss']:.3f} %"
     f_sw = f"f_sw = {1e-3 * design['f_sw']:.2f} kHz"
     T_diff = f"T_diff = {1e0 * design['T_diff']:.2f} C"
-    print(f"{name} / {penalty} / {rho} / {gamma} / {loss} / {f_sw} / {T_diff}")
+    summary = f"{penalty} / {rho} / {gamma} / {loss} / {f_sw} / {T_diff}"
+
+    return summary

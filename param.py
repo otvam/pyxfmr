@@ -131,10 +131,10 @@ def get_design(geom, conv, split, simplified):
     (ratio_cw, ratio_c, ratio_w) = get_shape(geom)
 
     # get the targets for the volumetric power density
-    rho_def = 10e3 / 0.5e-3
+    rho_def = 20e6
 
     # get the targets for the gravimetric power density
-    gamma_def = 10e3 / 1.5
+    gamma_def = 7e3
 
     # secondary to primary voltage transfer ratio
     n_trf = 1.0
@@ -170,7 +170,7 @@ def get_design(geom, conv, split, simplified):
 
     # assign the parameters
     design = {
-        # ################### core parameters (N97 ferrite)
+        # ################### core parameters
         "k_stm": k_stm,  # Steinmetz parameter k
         "alpha_stm": alpha_stm,  # Steinmetz parameter alpha
         "beta_stm": beta_stm,  # Steinmetz parameter beta
@@ -182,7 +182,7 @@ def get_design(geom, conv, split, simplified):
         # ################### thermal parameters
         "h_coeff": 25.0,  # surface convection coefficient
         "A_coeff": 0.8,  # fraction of the area used for cooling
-        # ################### density of the material
+        # ################### density of the materials
         "rho_core": 4920.0,  # density of the core material
         "rho_insulation": 1500.0,  # density of the insulation
         "rho_conductor": 3500.0,  # density of the winding
@@ -194,11 +194,11 @@ def get_design(geom, conv, split, simplified):
         "ratio_w": ratio_w,  # aspect ratio of the winding windows
         # ################### initial values (only used internally)
         "A_init": 100e-8,  # initial value for the area product
-        "f_init": 100e3,  # initial value for the operating frequency
+        "f_init": 200e3,  # initial value for the operating frequency
         "n_init": 10.0,  # initial value for the number of turns
         # ################### default values (will be optimized)
-        "f_def": np.nan,  # default (non-optimized) operating frequency
-        "n_def": np.nan,  # default (non-optimized) number of turns
+        "f_def": 200e3,  # default (non-optimized) operating frequency
+        "n_def": 10.0,  # default (non-optimized) number of turns
         # ################### correction factors for non-sinusoidal waveforms
         "igse_flux": igse_flux,  # correction factor for the peak flux
         "igse_loss": igse_loss,  # correction factor for the core losses

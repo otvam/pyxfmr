@@ -32,8 +32,8 @@ def fct_solve(P_trg, rho_trg, n_sweep):
     conv = "sin"
     split = "1p"
 
-    # optimization type
-    opt = "freq"
+    # optimization type (optimal frequency and number of turns)
+    opt = "freq_turn"
 
     # use the simplified design
     simplified = True

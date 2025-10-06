@@ -85,11 +85,11 @@ if __name__ == "__main__":
     # Steinmetz parameters
     (k_stm, alpha_stm, beta_stm) = param.get_steinmetz()
 
-    # run the scaling laws for the different configurations (frequency sweep)
+    # run the scaling laws for the different configurations (frequency sweep with optimal number of turns)
     (f_sw, P_loss) = fct_solve("turn", f_sweep, np.nan, n_sweep)
 
-    # get the best transformer (optimal frequency)
-    (f_sw_opt, P_loss_opt) = fct_solve("freq", np.nan, np.nan, None)
+    # get the best transformer (optimal frequency and optimal number of turns)
+    (f_sw_opt, P_loss_opt) = fct_solve("freq_turn", np.nan, np.nan, None)
 
     # compute the frequency diversity with the analytical expression
     term_1 = ((f_sw**2) / (f_sw_opt**2)) ** (alpha_stm / (2 + beta_stm))
