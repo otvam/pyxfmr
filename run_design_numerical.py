@@ -61,7 +61,6 @@ def _get_design(geom, constant, design, trg, var_tmp, n_sweep):
     Compute transformer designs from optimized parameters.
     """
 
-
     # optimization type (frequency and number of turns are optimized numerically)
     opt = "none"
 

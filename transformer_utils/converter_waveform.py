@@ -99,7 +99,7 @@ def _get_loss_factor(d_sig, B_sig, B_sin, igse_flux, alpha_stm, beta_stm):
     k_sin = (B_pkpk_sin ** (beta_stm - alpha_stm)) * integrate.trapezoid(np.abs(dB_sin) ** alpha_stm, d_sig)
 
     # extract the loss correction factors
-    igse_loss = (1 / (igse_flux ** beta_stm)) * (k_sig / k_sin)
+    igse_loss = (1 / (igse_flux**beta_stm)) * (k_sig / k_sin)
 
     return igse_loss
 

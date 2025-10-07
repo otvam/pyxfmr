@@ -15,7 +15,7 @@ from transformer_utils import converter_waveform
 
 if __name__ == "__main__":
     # define the Steinmetz parameters
-    with open(os.path.join("transformer_data", "param_steinmetz.json"), "r") as fid:
+    with open(os.path.join("transformer_data", "param_steinmetz.json")) as fid:
         data = json.load(fid)
         alpha_stm = data["alpha_stm"]
         beta_stm = data["beta_stm"]
