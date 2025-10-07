@@ -56,9 +56,11 @@ if __name__ == "__main__":
         print(f"========================================== {geom} / {split}")
         for conv in conv_list:
             print(f"========= {conv}")
+
             design = fct_solve(geom, conv, split, "volume")
             summary = display.get_summary(design)
             print(f"volume / {summary}")
+
             design = fct_solve(geom, conv, split, "mass")
             summary = display.get_summary(design)
             print(f"mass / {summary}")

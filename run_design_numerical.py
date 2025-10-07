@@ -14,19 +14,96 @@ from transformer_scaling import vector
 import param
 
 
-def fct_solve(geom, conv, split):
+def _get_objective(design_tmp, mode):
+    """
+    Compute the objective function for the optimization.
+    Optimization with a constant volume and mass.
+    Optimization with a loss constraint.
+    """
+
+    # extract the data
+    rho = design_tmp["rho"]
+    gamma = design_tmp["gamma"]
+    loss = design_tmp["loss"]
+    penalty = design_tmp["penalty"]
+
+    # loss parameters
+    fact_obj = 1.0
+    fact_bound = 5.0
+    fact_penalty = 2.0
+
+    # scaling parameters
+    loss_max = 0.2e-2
+    loss_scl = 0.2e-2
+    rho_scl = 20e6
+    gamma_scl = 7e3
+
+    # scale the loss violation
+    bound = np.maximum((loss - loss_max) / loss_max, 0.0)
+
+    # compute the objective
+    if mode == "volume":
+        obj = (loss / loss_scl) * (fact_obj + fact_penalty * penalty)
+    elif mode == "mass":
+        obj = (loss / loss_scl) * (fact_obj + fact_penalty * penalty)
+    elif mode == "loss_volume":
+        obj = (rho_scl / rho) * (fact_obj + fact_penalty * penalty + fact_bound * bound)
+    elif mode == "loss_mass":
+        obj = (gamma_scl / gamma) * (fact_obj + fact_penalty * penalty + fact_bound * bound)
+    else:
+        raise ValueError("invalid objective")
+
+    return obj
+
+
+def _get_design(constant, design, trg, var_tmp, n_sweep):
+    """
+    Compute transformer designs from optimized parameters.
+    """
+
+
+    # optimization type (frequency and number of turns are optimized numerically)
+    opt = "none"
+
+    # merge parameters
+    design_tmp = design | var_tmp
+
+    # vectorize the design
+    design_tmp = vector.get_vectorize(design_tmp, n_sweep)
+
+    # solve the design
+    design_tmp = model.get_solve(geom, trg, opt, constant, design_tmp)
+
+    return design_tmp
+
+
+def fct_solve(geom, conv, split, mode):
     """
     Optimize, solve, and plot a single transformer design (numerical optima).
     """
 
-    # geometry target
-    trg = "volume"
-
-    # optimization type
-    opt = "none"
-
     # use the simplified design
     simplified = False
+
+    # get the geometry metric and optim variables
+    if mode == "volume":
+        trg = "volume"
+        use_rho = False
+        use_gamma = False
+    elif mode == "mass":
+        trg = "mass"
+        use_rho = False
+        use_gamma = False
+    elif mode == "loss_volume":
+        trg = "volume"
+        use_rho = True
+        use_gamma = False
+    elif mode == "loss_mass":
+        trg = "mass"
+        use_rho = False
+        use_gamma = True
+    else:
+        raise ValueError("invalid objective")
 
     # get the parameters
     constant = param.get_constant()
@@ -36,27 +113,11 @@ def fct_solve(geom, conv, split):
     #   - the relative losses are the objective
     #   - a penalty is added for invalid designs
     def fct_obj(var_tmp, n_sweep):
-        # merge parameters
-        design_tmp = design | var_tmp
-
-        # vectorize the design
-        design_tmp = vector.get_vectorize(design_tmp, n_sweep)
-
         # solve the design
-        design_tmp = model.get_solve(geom, trg, opt, constant, design_tmp)
-
-        # extract the data
-        loss = design_tmp["loss"]
-        penalty = design_tmp["penalty"]
-
-        # loss parameters
-        fact_loss = 1.0
-        fact_penalty = 5.0
-        obj_invalid = 1.0
+        design_tmp = _get_design(constant, design, trg, var_tmp, n_sweep)
 
         # compute the objective
-        obj = loss * (fact_loss + fact_penalty * penalty)
-        obj = np.minimum(obj, obj_invalid)
+        obj = _get_objective(design_tmp, mode)
 
         return obj
 
@@ -67,6 +128,8 @@ def fct_solve(geom, conv, split):
         "ratio_w": {"bnd": (0.5, 6.0), "log": True, "use": True},
         "n_def": {"bnd": (2, 50), "log": True, "use": True},
         "f_def": {"bnd": (10e3, 500e3), "log": True, "use": True},
+        "rho_def": {"bnd": (4e6, 80e6), "log": True, "use": use_rho},
+        "gamma_def": {"bnd": (1e3, 30e3), "log": True, "use": use_gamma},
     }
 
     # options for the global optimizer (differential evolution)
@@ -74,20 +137,16 @@ def fct_solve(geom, conv, split):
         "maxiter": 250,
         "popsize": 200,
         "tol": 1e-5,
+        "rng": 1234,
     }
 
     # solve the transformer design problem
     (var, res) = optimizer.get_optimal(fct_obj, var_list, options)
 
     # extract the optimal design
-    design = design | var
+    design = _get_design(constant, design, trg, var, None)
 
-    # solve the optimal design
-    design = model.get_solve(geom, trg, opt, constant, design)
-
-    # display the solution (with or without details)
-    tag = f"{geom}_{split}_{conv}"
-    display.get_summary(tag, design)
+    return design
 
 
 if __name__ == "__main__":
@@ -113,4 +172,20 @@ if __name__ == "__main__":
     for geom, split in shape_list:
         print(f"========================================== {geom} / {split}")
         for conv in conv_list:
-            fct_solve(geom, conv, split)
+            print(f"========= {conv}")
+
+            design = fct_solve(geom, conv, split, "volume")
+            summary = display.get_summary(design)
+            print(f"volume / {summary}")
+
+            design = fct_solve(geom, conv, split, "mass")
+            summary = display.get_summary(design)
+            print(f"mass / {summary}")
+
+            design = fct_solve(geom, conv, split, "loss_volume")
+            summary = display.get_summary(design)
+            print(f"loss_volume / {summary}")
+
+            design = fct_solve(geom, conv, split, "loss_mass")
+            summary = display.get_summary(design)
+            print(f"loss_mass / {summary}")
