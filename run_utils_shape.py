@@ -7,12 +7,13 @@ __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
 import json
+import os.path
 from transformer_utils import transformer_shape
 
 
 if __name__ == "__main__":
     # define the Steinmetz parameters
-    with open("param_steinmetz.json", "r") as fid:
+    with open(os.path.join("transformer_data", "param_steinmetz.json"), "r") as fid:
         data = json.load(fid)
         alpha_stm = data["alpha_stm"]
         beta_stm = data["beta_stm"]
@@ -39,5 +40,5 @@ if __name__ == "__main__":
         out[geom] = transformer_shape.get_optimal_shape(geom, alpha_stm, beta_stm, optim)
 
     # write the results
-    with open("param_shape.json", "w") as fid:
+    with open(os.path.join("transformer_data", "param_shape.json"), "w") as fid:
         json.dump(out, fid, indent=4)

@@ -56,7 +56,7 @@ def _get_objective(design_tmp, mode):
     return obj
 
 
-def _get_design(constant, design, trg, var_tmp, n_sweep):
+def _get_design(geom, constant, design, trg, var_tmp, n_sweep):
     """
     Compute transformer designs from optimized parameters.
     """
@@ -114,7 +114,7 @@ def fct_solve(geom, conv, split, mode):
     #   - a penalty is added for invalid designs
     def fct_obj(var_tmp, n_sweep):
         # solve the design
-        design_tmp = _get_design(constant, design, trg, var_tmp, n_sweep)
+        design_tmp = _get_design(geom, constant, design, trg, var_tmp, n_sweep)
 
         # compute the objective
         obj = _get_objective(design_tmp, mode)
@@ -144,7 +144,7 @@ def fct_solve(geom, conv, split, mode):
     (var, res) = optimizer.get_optimal(fct_obj, var_list, options)
 
     # extract the optimal design
-    design = _get_design(constant, design, trg, var, None)
+    design = _get_design(geom, constant, design, trg, var, None)
 
     return design
 

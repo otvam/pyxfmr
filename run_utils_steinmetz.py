@@ -7,6 +7,7 @@ __copyright__ = "Thomas Guillod - Dartmouth College"
 __license__ = "Mozilla Public License Version 2.0"
 
 import json
+import os.path
 import numpy as np
 import matplotlib.pyplot as plt
 from transformer_utils import steinmetz_extractor
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     steinmetz_extractor.get_eval_steinmetz(dset, grid, out)
 
     # print the results
-    with open("param_steinmetz.json", "w") as fid:
+    with open(os.path.join("transformer_data", "param_steinmetz.json"), "w") as fid:
         json.dump(out, fid, indent=4)
 
     # plot the errors

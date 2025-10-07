@@ -20,7 +20,7 @@ def get_steinmetz():
 
     # load the values
     folder = os.path.dirname(os.path.abspath(__file__))
-    with open(os.path.join(folder, "param_steinmetz.json"), "r") as fid:
+    with open(os.path.join(folder, "transformer_data", "param_steinmetz.json"), "r") as fid:
         data = json.load(fid)
 
     # extract the values
@@ -39,7 +39,7 @@ def get_shape(geom):
 
     # load the values
     folder = os.path.dirname(os.path.abspath(__file__))
-    with open(os.path.join(folder, "param_shape.json"), "r") as fid:
+    with open(os.path.join(folder, "transformer_data", "param_shape.json"), "r") as fid:
         data = json.load(fid)
 
     # select the values
@@ -61,7 +61,7 @@ def get_waveform(conv, phase):
 
     # load the values
     folder = os.path.dirname(os.path.abspath(__file__))
-    with open(os.path.join(folder, "param_waveform.json"), "r") as fid:
+    with open(os.path.join(folder, "transformer_data", "param_waveform.json"), "r") as fid:
         data = json.load(fid)
 
     # select the values

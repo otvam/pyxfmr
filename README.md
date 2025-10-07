@@ -47,6 +47,7 @@ This code implements several **scaling laws**:
 * Python Packages
   * [transformer_scaling](transformer_scaling) - Python package with the transformer models.
   * [transformer_utils](transformer_utils) - Python package with various design tools.
+  * [transformer_data](transformer_data) - JSON files with the generated parameters.
 
 ## Compatibility
 
