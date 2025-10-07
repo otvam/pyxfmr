@@ -27,7 +27,7 @@ def _get_objective(design_tmp, mode):
     loss = design_tmp["loss"]
     penalty = design_tmp["penalty"]
 
-    # loss parameters
+    # objective parameters
     fact_obj = 1.0
     fact_bound = 5.0
     fact_penalty = 2.0

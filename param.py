@@ -95,7 +95,7 @@ def get_constant():
         "fact_thermal": 1.25,  # safety factor for the temperature
         # ################### operating ranges
         "f_core_rng": [np.nan, 400e3],  # acceptable frequency for the core material
-        "f_winding_rng": [np.nan, 1500e3],  # acceptable frequency for the winding material
+        "f_winding_rng": [np.nan, 800e3],  # acceptable frequency for the winding material
         "B_pk_rng": [np.nan, 200e-3],  # acceptable range for the flux density
         "p_core_rng": [np.nan, 500e3],  # acceptable range for the loss density
         "J_rms_rng": [np.nan, 6e6],  # acceptable range for the current density
