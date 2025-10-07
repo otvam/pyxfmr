@@ -15,7 +15,7 @@ This code implements simple **medium-frequency transformer models**:
 * Including the impact of **non-sinusoidal waveforms**.
 
 This code implements several **optimization methods**:
-* Analytical optima for **number of turns** and **operating frequency**.
+* Analytical optima for the **number of turns** and the **operating frequency**.
 * Numerical optima with a **differential evolution solver**.
 
 This code implements several **scaling laws**:

@@ -1,6 +1,5 @@
 """
 Definition of the parameters of the transformers.
-Some parameters are computed in "transformer_utils".
 """
 
 __author__ = "Thomas Guillod"
