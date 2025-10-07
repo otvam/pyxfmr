@@ -37,8 +37,8 @@ This code implements several **scaling laws**:
   * [run_design_numerical.py](run_design_numerical.py) - Compare transformers using numerical optima.
 * Scaling Laws
   * [run_scaling_freq_sensitivity.py](run_scaling_freq_sensitivity.py) - Transformer frequency sensitivity.
-  * [run_scaling_winding_type.py](run_scaling_winding_type.py) - Winding material scaling laws.
   * [run_scaling_power_volume.py](run_scaling_power_volume.py) - Power rating / power density scaling laws.
+  * [run_scaling_winding_type.py](run_scaling_winding_type.py) - Winding material and interleaving scaling laws.
   * [run_scaling_transformer_type.py](run_scaling_transformer_type.py) - Transformer type / converter type scaling laws.
 * Transformer Utils
   * [run_utils_steinmetz.py](run_utils_steinmetz.py) - Extract the Steinmetz parameters.
