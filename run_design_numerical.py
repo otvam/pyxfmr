@@ -29,7 +29,7 @@ def _get_objective(design_tmp, mode):
 
     # objective parameters
     fact_obj = 1.0
-    fact_bound = 5.0
+    fact_bound = 8.0
     fact_penalty = 2.0
 
     # scaling parameters
@@ -134,7 +134,7 @@ def fct_solve(geom, conv, split, mode):
     # options for the global optimizer (differential evolution)
     options = {
         "maxiter": 250,
-        "popsize": 200,
+        "popsize": 250,
         "tol": 1e-5,
         "rng": 1234,
     }
