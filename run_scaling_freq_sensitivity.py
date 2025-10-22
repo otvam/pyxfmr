@@ -59,20 +59,20 @@ def fct_plot(f_sw, P_loss, P_diversity, f_sw_opt, P_loss_opt):
     """
 
     # create the figure
-    plt.figure(num="diversity", figsize=(6.4, 4.8))
+    (fig, axes) = plt.subplots(1, num="diversity", figsize=(6.4, 4.8))
 
     # plot the variables
-    plt.plot(1e-3 * f_sw, 1e0 * P_loss, "-b")
-    plt.plot(1e-3 * f_sw, 1e0 * P_diversity, "--r")
-    plt.plot(1e-3 * f_sw_opt, 1e0 * P_loss_opt, "ok")
+    axes.plot(1e-3 * f_sw, 1e0 * P_loss, "-b")
+    axes.plot(1e-3 * f_sw, 1e0 * P_diversity, "--r")
+    axes.plot(1e-3 * f_sw_opt, 1e0 * P_loss_opt, "ok")
 
     # add cosmetics
-    plt.xscale("linear")
-    plt.yscale("linear")
-    plt.xlabel("f_sw (kHz)")
-    plt.ylabel("P_loss (W)")
-    plt.grid()
-    plt.tight_layout()
+    axes.set_xscale("linear")
+    axes.set_yscale("linear")
+    axes.set_xlabel("f_sw (kHz)")
+    axes.set_ylabel("P_loss (W)")
+    axes.grid()
+    fig.tight_layout()
 
 
 if __name__ == "__main__":

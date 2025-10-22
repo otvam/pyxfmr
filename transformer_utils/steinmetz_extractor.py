@@ -146,7 +146,7 @@ def get_eval_steinmetz(dset, grid, out):
     sc = axes.scatter(1e-3 * f_eval, 1e3 * B_eval, 20, 1e2 * err)
 
     # add colorbar
-    cbar = plt.colorbar(sc, ax=axes)
+    cbar = fig.colorbar(sc, ax=axes)
     cbar.set_label("Relative Error (%)")
 
     # add cosmetics
@@ -158,9 +158,6 @@ def get_eval_steinmetz(dset, grid, out):
 
     # add cosmetics
     fig.tight_layout()
-
-    # add cosmetics
-    plt.tight_layout()
 
     # get the error metrics
     err = np.abs(err)
