@@ -106,7 +106,7 @@ def fct_solve(geom, conv, split, mode):
 
     # get the parameters
     constant = param.get_constant()
-    design = param.get_design(geom, conv, split, simplified)
+    design = param.get_design(geom, split, conv, simplified)
 
     # define the objective function
     #   - the relative losses are the objective

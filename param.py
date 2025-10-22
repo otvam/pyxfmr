@@ -118,10 +118,30 @@ def get_constant():
     return constant
 
 
-def get_design(geom, conv, split, simplified):
+def get_design(geom, split, conv, simplified):
     """
     Return the transformer parameters.
+        - geom: name of the transformer geometry
+        - split: name of the phase configuration
+        - conv: name of the converter topology
+        - simplified: neglect the insulation distance
     """
+
+    # check the configuration validity
+    shape_list = [
+        ("shell_inter", "1x1p"),
+        ("shell_simple", "1x1p"),
+        ("core_type", "1x1p"),
+        ("shell_inter", "3x1p_wye"),
+        ("shell_inter", "3x1p_delta"),
+        ("shell_simple", "3x1p_wye"),
+        ("shell_simple", "3x1p_delta"),
+        ("core_type", "3x1p_wye"),
+        ("core_type", "3x1p_delta"),
+        ("three_phase", "1x3p_wye"),
+        ("three_phase", "1x3p_delta"),
+    ]
+    assert (geom, split) in shape_list, "invalid configuration"
 
     # get the Steinmetz parameters
     (k_stm, alpha_stm, beta_stm) = get_steinmetz()

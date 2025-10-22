@@ -40,7 +40,7 @@ def fct_solve(sigma, k_fill, d_strand, n_inter, n_sweep):
 
     # get the parameters
     constant = param.get_constant()
-    design = param.get_design(geom, conv, split, simplified)
+    design = param.get_design(geom, split, conv, simplified)
 
     # set the winding values
     design["k_fill"] = k_fill

@@ -40,7 +40,7 @@ def fct_solve(P_trg, rho_trg, n_sweep):
 
     # get the parameters
     constant = param.get_constant()
-    design = param.get_design(geom, conv, split, simplified)
+    design = param.get_design(geom, split, conv, simplified)
 
     # get the power and volume variables
     P_trf = design["P_trf"]

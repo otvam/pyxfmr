@@ -24,7 +24,7 @@ def fct_solve(geom, conv, split, trg):
 
     # get the parameters
     constant = param.get_constant()
-    design = param.get_design(geom, conv, split, simplified)
+    design = param.get_design(geom, split, conv, simplified)
 
     # solve the design
     design = model.get_solve(geom, trg, opt, constant, design)

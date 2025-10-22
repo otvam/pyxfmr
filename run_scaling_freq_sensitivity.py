@@ -36,7 +36,7 @@ def fct_solve(opt, f_def, n_def, n_sweep):
 
     # get the parameters
     constant = param.get_constant()
-    design = param.get_design(geom, conv, split, simplified)
+    design = param.get_design(geom, split, conv, simplified)
 
     # assign the frequency and the number of turns
     design["f_def"] = f_def
