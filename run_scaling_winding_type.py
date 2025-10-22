@@ -30,7 +30,7 @@ def fct_solve(sigma, k_fill, d_strand, n_inter, n_sweep):
 
     # transformer excitation
     conv = "sin"
-    split = "1p"
+    split = "1x1p"
 
     # optimization type (optimal frequency and number of turns)
     opt = "freq_turn"

@@ -29,7 +29,7 @@ def fct_solve(opt, f_def, n_def, n_sweep):
 
     # transformer excitation
     conv = "sin"
-    split = "1p"
+    split = "1x1p"
 
     # use the simplified design
     simplified = True

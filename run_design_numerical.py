@@ -154,17 +154,17 @@ if __name__ == "__main__":
 
     # different transformer configurations
     shape_list = [
-        ("shell_inter", "1p"),
-        ("shell_simple", "1p"),
-        ("core_type", "1p"),
-        ("shell_inter", "sp_wye"),
-        ("shell_inter", "sp_delta"),
-        ("shell_simple", "sp_wye"),
-        ("shell_simple", "sp_delta"),
-        ("core_type", "sp_wye"),
-        ("core_type", "sp_delta"),
-        ("three_phase", "3p_wye"),
-        ("three_phase", "3p_delta"),
+        ("shell_inter", "1x1p"),
+        ("shell_simple", "1x1p"),
+        ("core_type", "1x1p"),
+        ("shell_inter", "3x1p_wye"),
+        ("shell_inter", "3x1p_delta"),
+        ("shell_simple", "3x1p_wye"),
+        ("shell_simple", "3x1p_delta"),
+        ("core_type", "3x1p_wye"),
+        ("core_type", "3x1p_delta"),
+        ("three_phase", "1x3p_wye"),
+        ("three_phase", "1x3p_delta"),
     ]
 
     # run the sweeps for the different configurations
