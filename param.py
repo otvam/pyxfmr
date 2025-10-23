@@ -85,8 +85,8 @@ def get_constant():
 
     constant = {
         # ################### area product iterations
-        "n_iter": 6,  # number of iterations to find the area product
-        "k_error": 1e-3,  # relative tolerance for the area product
+        "n_iter": 6,  # maximum number of iterations to find the area product
+        "k_error": 1e-3,  # relative termination tolerance for the area product
         # ################### safety factors
         "fact_core": 1.25,  # safety factor for the core losses
         "fact_winding": 1.10,  # safety factor for the winding losses
@@ -95,11 +95,11 @@ def get_constant():
         # ################### operating ranges
         "f_core_rng": [np.nan, 400e3],  # acceptable frequency for the core material
         "f_winding_rng": [np.nan, 800e3],  # acceptable frequency for the winding material
-        "B_pk_rng": [np.nan, 200e-3],  # acceptable range for the flux density
-        "p_core_rng": [np.nan, 500e3],  # acceptable range for the loss density
-        "J_rms_rng": [np.nan, 6e6],  # acceptable range for the current density
-        "p_winding_rng": [np.nan, 500e3],  # acceptable range for the loss density
-        "T_diff_rng": [np.nan, 80.0],  # acceptable range for the temperature
+        "B_pk_rng": [np.nan, 200e-3],  # acceptable range for the core flux density
+        "p_core_rng": [np.nan, 500e3],  # acceptable range for the core loss density
+        "J_rms_rng": [np.nan, 6e6],  # acceptable range for the winding current density
+        "p_winding_rng": [np.nan, 500e3],  # acceptable range for the winding loss density
+        "T_diff_rng": [np.nan, 80.0],  # acceptable range for the component temperature
         # ################### optimization ranges
         "f_sw_rng": [10e3, 500e3],  # acceptable range for the switching frequency
         "n_turn_rng": [2.0, 50.0],  # acceptable range for the total number of turns
@@ -196,8 +196,8 @@ def get_design(geom, split, conv, simplified):
         # ################### winding parameters
         "n_inter": 1.0,  # number of interleaving for the winding
         "k_fill": 0.25,  # winding fill factor (packing and litz)
-        "d_strand": 71e-6,  # diameter of the litz strands
-        "sigma": 46e6,  # conductivity of the conductor
+        "d_strand": 71e-6,  # diameter of the litz wire strands
+        "sigma": 46e6,  # conductivity of the winding material
         # ################### thermal parameters
         "h_coeff": 25.0,  # surface convection coefficient
         "A_coeff": 0.8,  # fraction of the area used for cooling
