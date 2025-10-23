@@ -25,6 +25,14 @@ This code implements several **scaling laws**:
 * **DAB / SRC** converter comparison.
 * **Single-phase / three-phase** comparison.
 
+## Gallery
+
+![Geometry](transformer_img/geometry.png)
+
+![Topology](transformer_img/topology.png)
+
+![Waveshape](transformer_img/waveshape.png)
+
 ## Repository Description
 
 * Main Files
@@ -48,6 +56,7 @@ This code implements several **scaling laws**:
   * [transformer_scaling](transformer_scaling) - Python package with the transformer models.
   * [transformer_utils](transformer_utils) - Python package with various design tools.
   * [transformer_data](transformer_data) - JSON files with the generated parameters.
+  * [transformer_img](transformer_img) - PNG and SVG files for the documentation.
 
 ## Compatibility
 
