@@ -73,7 +73,7 @@ This code implements several **scaling laws**:
 
 ## Credits
 
-PyFreeCoil was created at **Dartmouth College** by the research group of **Prof. Sullivan**:
+PyXFMR was created at **Dartmouth College** by the research group of **Prof. Sullivan**:
 * Dartmouth College, NH, USA: https://dartmouth.edu
 * Dartmouth Engineering: https://engineering.dartmouth.edu
 
