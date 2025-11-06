@@ -6,6 +6,7 @@ This repository contains the **source code** related to the following **paper**:
 * **Efficiency / Power Density Analysis of Single-Phase and Three-Phase Transformers Employed in DAB and SRC DC/DC Converters**
 * **Thomas Guillod, Daifei Zhang, Charles R. Sullivan, and Johann W. Kolar**
 * **IEEE ICRERA 2025**
+* [**Paper** (IEEE copyright)](paper.pdf)
 
 This code implements simple **medium-frequency transformer models**:
 * **Shell-type** and **core-type** transformers.
