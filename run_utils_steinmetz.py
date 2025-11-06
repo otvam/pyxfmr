@@ -41,7 +41,7 @@ if __name__ == "__main__":
     optim = {
         "ftol": 1e-6,  # termination tolerance for the optimizer
         "xtol": 1e-6,  # termination tolerance for the optimizer
-        "k_bnd": (1e-3, 1e-1),  # bounds for the parameter k
+        "k_stm_bnd": (1e-3, 1e-1),  # bounds for the parameter k
         "alpha_stm_bnd": (1.0, 2.0),  # bounds for the parameter alpha
         "beta_stm_bnd": (2.0, 3.0),  # bounds for the parameter beta
     }

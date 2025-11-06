@@ -61,7 +61,7 @@ def get_optimal_steinmetz(dset, grid, optim):
     # extract the optimization data
     ftol = optim["ftol"]
     xtol = optim["xtol"]
-    k_bnd = optim["k_bnd"]
+    k_stm_bnd = optim["k_stm_bnd"]
     alpha_stm_bnd = optim["alpha_stm_bnd"]
     beta_stm_bnd = optim["beta_stm_bnd"]
 
@@ -85,11 +85,11 @@ def get_optimal_steinmetz(dset, grid, optim):
         return err
 
     # get the variables bounds
-    bnd_min = [np.min(np.log10(k_bnd)), np.min(alpha_stm_bnd), np.min(beta_stm_bnd)]
-    bnd_max = [np.max(np.log10(k_bnd)), np.max(alpha_stm_bnd), np.max(beta_stm_bnd)]
+    bnd_min = [np.min(np.log10(k_stm_bnd)), np.min(alpha_stm_bnd), np.min(beta_stm_bnd)]
+    bnd_max = [np.max(np.log10(k_stm_bnd)), np.max(alpha_stm_bnd), np.max(beta_stm_bnd)]
 
     # get the initial values
-    x_bnd = [np.mean(np.log10(k_bnd)), np.mean(alpha_stm_bnd), np.mean(beta_stm_bnd)]
+    x_bnd = [np.mean(np.log10(k_stm_bnd)), np.mean(alpha_stm_bnd), np.mean(beta_stm_bnd)]
 
     # solve the optimization problem
     result = optimize.least_squares(
