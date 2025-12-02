@@ -1,4 +1,4 @@
-# PyXFMR - Optimization and Scaling of Medium-Frequency Transformers
+# PyScaleXFMR - Optimization and Scaling of Medium-Frequency Transformers
 
 ## Introduction
 
@@ -74,7 +74,7 @@ This code implements several **scaling laws**:
 
 ## Credits
 
-PyXFMR was created at **Dartmouth College** by the research group of **Prof. Sullivan**:
+PyScaleXFMR was created at **Dartmouth College** by the research group of **Prof. Sullivan**:
 * Dartmouth College, NH, USA: https://dartmouth.edu
 * Dartmouth Engineering: https://engineering.dartmouth.edu
 
