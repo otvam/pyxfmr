@@ -213,7 +213,7 @@ def _get_plot_waveform(conv, phase, n_coil, d_sig, V_sig, I_sig):
 
 def get_converter_waveform(conv, phase, operating, alpha_stm, beta_stm):
     """
-    Get the waveform for a single-phase converter.
+    Get the waveform for a specified converter configuration.
     """
 
     # extract the data
