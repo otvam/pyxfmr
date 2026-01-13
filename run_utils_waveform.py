@@ -25,8 +25,8 @@ if __name__ == "__main__":
         "n": 25000,  # number of samples for the waveforms
         "P_src": 10e3,  # power rating of the converter
         "V_src": 600.0,  # voltage rating of the converter
-        "phi": np.deg2rad(30.0),  # phase angle between the bridges
-        "amp": 1.0,  # voltage ratio between the bridge
+        "phi": np.deg2rad(30.0),  # phase angle between the bridges for DAB
+        "amp": 1.0,  # voltage ratio between the bridges for DAB
     }
 
     # transformer excitation
