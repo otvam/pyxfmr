@@ -1,6 +1,6 @@
 """
 Compute the waveforms and the correction factors for a converter type:
-    - Single-phase and three-phase excitations (star connection)
+    - Single-phase and three-phase excitations (wye/delta connection)
     - Sinusoidal, dual-active bridge, or series-resonant converter
     - The magnetizing current of the transformer is neglected.
     - For the converters, an external leakage inductor is used.
